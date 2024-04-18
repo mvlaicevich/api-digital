@@ -39,7 +39,7 @@ public class LessonControllerTest {
     }
 
     @Test
-    public void testGetLessonById() throws Exception {
+    void testGetLessonById() throws Exception {
         Lesson lesson = new Lesson();
         when(lessonService.getLessonById(1L)).thenReturn(lesson);
 
@@ -49,7 +49,7 @@ public class LessonControllerTest {
     }
 
     @Test
-    public void testAddLesson() throws Exception {
+    void testAddLesson() throws Exception {
         Lesson lesson = new Lesson();
         when(lessonService.addLesson(lesson)).thenReturn(lesson);
 

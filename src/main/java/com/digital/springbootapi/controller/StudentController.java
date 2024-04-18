@@ -1,5 +1,6 @@
 package com.digital.springbootapi.controller;
 
+import com.digital.springbootapi.exception.UserAlreadyExistsException;
 import com.digital.springbootapi.model.Student;
 import com.digital.springbootapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,14 @@ public class StudentController {
 
     @PostMapping
     public Student addStudent(@RequestBody Student student) {
+        //email is mandatory
+        if (student.getEmail() == null) {
+            throw new RuntimeException("Email is mandatory");
+        }
+        //email already exists
+        if (studentService.getStudentByEmail(student.getEmail()).isPresent()) {
+            throw new UserAlreadyExistsException("Email already exists");
+        }
         return studentService.addStudent(student);
     }
 

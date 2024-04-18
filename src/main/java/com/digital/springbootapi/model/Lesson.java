@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-
 public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

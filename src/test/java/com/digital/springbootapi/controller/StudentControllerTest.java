@@ -42,8 +42,20 @@ public class StudentControllerTest {
 
         mockMvc.perform(post("/students")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\":\"John Doe\"}"))
+                        .content("{\"name\":\"John Doe\"}")
+                .content("{\"email\":\"JohnDoe@Test.com\"}"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testAddStudent_EmailIsNull_ThrowsException() throws Exception {
+        Student student = new Student();
+        student.setEmail(null);
+
+        mockMvc.perform(post("/students")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"John Doe\"}"))
+                .andExpect(status().isInternalServerError());
     }
 
     @Test
