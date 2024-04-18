@@ -1,8 +1,8 @@
 package com.digital.springbootapi.service;
 
 
-import com.digital.springbootapi.model.Student;
-import com.digital.springbootapi.repostory.StudentRepository;
+import com.digital.springbootapi.model.Lesson;
+import com.digital.springbootapi.repostory.LessonRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -19,61 +19,61 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class StudentServiceTest {
+public class LessonServiceTest {
 
     @InjectMocks
-    private StudentService studentService;
+    private LessonService lessonService;
 
     @Mock
-    private StudentRepository studentRepository;
+    private LessonRepository lessonRepository;
 
     @Test
-    public void testGetAllStudents() {
-        when(studentRepository.findAll()).thenReturn(Arrays.asList(new Student(), new Student()));
+    public void testGetAllLessons() {
+        when(lessonRepository.findAll()).thenReturn(Arrays.asList(new Lesson(), new Lesson()));
 
-        List<Student> result = studentService.getAllStudents();
+        List<Lesson> result = lessonService.getAllLessons();
 
         assertEquals(2, result.size());
     }
 
     @Test
-    public void testAddStudent() {
-        Student student = new Student();
-        when(studentRepository.save(student)).thenReturn(student);
+    public void testGetLessonById() {
+        Lesson lesson = new Lesson();
+        when(lessonRepository.findById(1L)).thenReturn(Optional.of(lesson));
 
-        Student result = studentService.addStudent(student);
+        Lesson result = lessonService.getLessonById(1L);
 
-        assertEquals(student, result);
+        assertEquals(lesson, result);
     }
 
     @Test
-    public void testUpdateStudent() {
-        Student student = new Student();
-        when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
-        when(studentRepository.save(student)).thenReturn(student);
+    public void testAddLesson() {
+        Lesson lesson = new Lesson();
+        when(lessonRepository.save(lesson)).thenReturn(lesson);
 
-        Student result = studentService.updateStudent(1L, student);
+        Lesson result = lessonService.addLesson(lesson);
 
-        assertEquals(student, result);
+        assertEquals(lesson, result);
     }
 
     @Test
-    public void testDeleteStudent() {
-        doNothing().when(studentRepository).deleteById(1L);
+    public void testUpdateLesson() {
+        Lesson lesson = new Lesson();
+        when(lessonRepository.findById(1L)).thenReturn(Optional.of(lesson));
+        when(lessonRepository.save(lesson)).thenReturn(lesson);
 
-        studentService.deleteStudent(1L);
+        Lesson result = lessonService.updateLesson(1L, lesson);
 
-        verify(studentRepository, times(1)).deleteById(1L);
+        assertEquals(lesson, result);
     }
 
     @Test
-    public void testGetStudentById() {
-        Student student = new Student();
-        when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
+    public void testDeleteLesson() {
+        doNothing().when(lessonRepository).deleteById(1L);
 
-        Student result = studentService.getStudentById(1L);
+        lessonService.deleteLesson(1L);
 
-        assertEquals(student, result);
+        verify(lessonRepository, times(1)).deleteById(1L);
     }
 
 }
