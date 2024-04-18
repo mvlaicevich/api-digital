@@ -2,14 +2,18 @@ package com.digital.springbootapi.service;
 
 import com.digital.springbootapi.model.Lesson;
 import com.digital.springbootapi.repostory.LessonRepository;
+import com.digital.springbootapi.resources.Quiz;
+import com.digital.springbootapi.resources.QuizMultipleChoice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+
 public class LessonService {
 
     private final LessonRepository lessonRepository;
@@ -39,5 +43,17 @@ public class LessonService {
 
     public void deleteLesson(Long id) {
         lessonRepository.deleteById(id);
+    }
+
+
+    public boolean checkQuizAnswers() {
+        List<String> questions = Arrays.asList("What is 2+2?", "Earth is flat?");
+        List<String> answers = Arrays.asList("4", "false");
+
+        Quiz mcQuiz = new Quiz(new QuizMultipleChoice(), questions, answers);
+        mcQuiz.displayQuiz();
+        System.out.println("Answer is correct: " + mcQuiz.checkAnswer(0, "4"));
+        return true;
+
     }
 }
